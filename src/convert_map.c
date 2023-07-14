@@ -6,11 +6,23 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 22:02:19 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/14 14:16:30 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:24:39 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+int	info_map_2(int fd, char *str, int *error)
+{
+	while (str && str[0] == '\n')
+	{
+		free(str);
+		str = get_next_line(fd, error);
+	}
+	if (!str && *error == 0)
+		return (close(fd), free(str), 0);
+	return (close(fd), free(str), -1);
+}
 
 int	info_map(char *pathname, int *number_of_line, int *number_of_char)
 {
@@ -36,14 +48,7 @@ int	info_map(char *pathname, int *number_of_line, int *number_of_char)
 		free(str);
 		str = get_next_line(fd, &error);
 	}
-	while (str && str[0] == '\n')
-	{
-		free(str);
-		str = get_next_line(fd, &error);
-	}
-	if (!str && error == 0)
-		return (close(fd), free(str), 0);
-	return (close(fd), free(str), -1);
+	return (info_map_2(fd, str, &error));
 }
 
 char	**malloc_map(char *pathname)
@@ -71,18 +76,42 @@ char	**malloc_map(char *pathname)
 	return (map);
 }
 
+char	**fill_map_2(char *str, char **map, int fd, int *error)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str && str[0] != '\n')
+	{
+		while (str[j] != '\n' && str[j] != '\0')
+		{
+			map[i][j] = str[j];
+			j++;
+		}
+		map[i][j] = '\0';
+		i++;
+		j = 0;
+		free(str);
+		str = get_next_line(fd, error);
+	}
+	if (!str && *error == 1)
+		return (close(fd), NULL);
+	free(str);
+	map[i] = NULL;
+	close(fd);
+	return (map);
+}
+
 char	**fill_map(char *pathname)
 {
 	char	**map;
 	int		fd;
 	char	*str;
-	int		i;
-	int		j;
 	int		error;
 
-	i = 0;
-	j = 0;
-	error = 0; 
+	error = 0;
 	map = malloc_map(pathname);
 	if (!map)
 		return (NULL);
@@ -95,23 +124,5 @@ char	**fill_map(char *pathname)
 		free(str);
 		str = get_next_line(fd, &error);
 	}
-	while (str && str[0] != '\n')
-	{
-		while (str[j] != '\n' && str[j] != '\0')
-		{
-			map[i][j] = str[j];
-			j++;
-		}
-		map[i][j] = '\0';
-		i++;
-		j = 0;
-		free(str);
-		str = get_next_line(fd, &error);
-	}
-	if (!str && error == 1)
-		return (close(fd), NULL);
-	free(str);
-	map[i] = NULL;
-	close(fd);
-	return (map);
+	return (fill_map_2(str, map, fd, &error));
 }
