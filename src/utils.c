@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/06 00:41:58 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/11 23:35:09by bmoudach         ###   ########.fr       */
+/*   Created: 2023/07/14 13:58:57 by bmoudach          #+#    #+#             */
+/*   Updated: 2023/07/14 15:03:10 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,30 @@ void	free_tab(char **tab, int until)
 	free(tab);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *error)
 {
-	int i = 0;
-	int rd = 0;
-	char character;
-	char *buffer;
+	int		i;
+	int		rd;
+	char	character;
+	char	*buffer;
 
+	i = 0;
+	rd = 0;
 	buffer = malloc(100000);
-	if(!buffer)
-		return (NULL);
-	while ((rd = read(fd, &character, 1)) > 0)
+	if (!buffer)
+		return (*error = 1, NULL);
+	rd = read(fd, &character, 1);
+	while (rd > 0)
 	{
 		buffer[i++] = character;
 		if (character == '\n')
 			break ;
+		rd = read(fd, &character, 1);
 	}
 	buffer[i] = '\0';
-	if (rd == -1 || i == 0 || (!buffer[i - 1] && !rd))
+	if (rd == -1)
+		return (*error = 1, free(buffer), NULL);
+	if (i == 0 || (!buffer[i - 1] && !rd))
 		return (free(buffer), NULL);
 	return (buffer);
 }
