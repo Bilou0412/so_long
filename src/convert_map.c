@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 22:02:19 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/14 16:24:39 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/15 17:44:21 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,12 @@ int	info_map(char *pathname, int *number_of_line, int *number_of_char)
 		free(str);
 		str = get_next_line(fd, &error);
 	}
+	*number_of_char = ft_strlen_param(str, '\n', &error);
 	while (str && str[0] != '\n')
 	{
 		*number_of_line = *number_of_line + 1;
-		if (*number_of_line == 1)
-			*number_of_char = ft_strlen(str) - 1;
+		if (*number_of_char != ft_strlen_param(str, '\n', &error))
+			return (close(fd), free(str), -1);
 		free(str);
 		str = get_next_line(fd, &error);
 	}

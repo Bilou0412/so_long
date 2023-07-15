@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:29:37 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/14 16:27:37 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:10:35 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@ char	*get_next_line(int fd, int *error);
 void	free_tab(char **tab, int until);
 char	**fill_map(char *pathname);
 int		ft_strlen(char *str);
+int		ft_strlen_param(char *str, char c, int *error);
+int		valid_wall(char **map);
+int		number_line(char **map);
 
 #endif

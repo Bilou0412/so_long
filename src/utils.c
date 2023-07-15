@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/14 13:58:57 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/14 15:03:10 by bmoudach         ###   ########.fr       */
+/*   Created: 2023/07/15 18:18:28 by bmoudach          #+#    #+#             */
+/*   Updated: 2023/07/15 18:18:58 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ void	free_tab(char **tab, int until)
 		free(tab[i]);
 		i++;
 	}
+	if (until == 0)
+	{
+		while (tab[i])
+		{
+			free(tab[i]);
+			i++;
+		}
+	}
 	free(tab);
 }
 
@@ -66,4 +74,29 @@ char	*get_next_line(int fd, int *error)
 	if (i == 0 || (!buffer[i - 1] && !rd))
 		return (free(buffer), NULL);
 	return (buffer);
+}
+
+int	ft_strlen_param(char *str, char c, int *error)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (*error = 1, 0);
+	while (*str != c && *str != '\0')
+	{
+		str++;
+		i++;
+	}
+	return (i);
+}
+
+int	number_line(char **map)
+{
+	int	size;
+
+	size = 0;
+	while (map[size])
+		size++;
+	return (size);
 }
