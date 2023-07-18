@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 16:59:37 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 16:34:03 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:16:13 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,25 @@ t_point	find_p(char **map)
 		begin.y++;
 	}
 	return (begin);
+}
+
+int	way(char **map)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while (map[y])
+	{
+		while (map[y][x])
+		{
+			if (map[y][x] == 'E' || map[y][x] == 'C')
+				return (free_tab(map, 0) ,0);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
+	return (free_tab(map, 0),1);
 }

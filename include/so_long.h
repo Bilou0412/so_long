@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:29:37 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 16:25:01 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:14:05 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define SO_LONG_H
 
 # include <fcntl.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
-# include <stdio.h>
 
 typedef struct s_point
 {
@@ -37,5 +37,7 @@ int		p(char **map);
 int		e(char **map);
 int		c(char **map);
 t_point	find_p(char **map);
+int		way(char **map);
+char	**ft_strdup_two_d(char **tab);
 
 #endif

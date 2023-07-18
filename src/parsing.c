@@ -6,13 +6,13 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:34:18 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 16:34:21 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:16:55 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	fill(char **tab, t_point size, t_point cur)
+void fill(char **tab, t_point size, t_point cur)
 {
 	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x
 		|| (tab[cur.y][cur.x] != 'P' && tab[cur.y][cur.x] != 'C'
@@ -25,9 +25,12 @@ void	fill(char **tab, t_point size, t_point cur)
 	fill(tab, size, (t_point){cur.x, cur.y + 1});
 }
 
-void	flood_fill(char **tab, t_point size, t_point begin)
+int	flood_fill(char **tab, t_point size, t_point begin)
 {
+	if(!tab)
+		return (0);
 	fill(tab, size, begin);
+	return (way(tab));
 }
 
 int	valid_char(char **map)
@@ -52,7 +55,7 @@ int	valid_char(char **map)
 	}
 	size.x = ft_strlen(map[0]);
 	size.y = j;
-	return (flood_fill(map, size, find_p(map)), 1);
+	return (flood_fill(ft_strdup_two_d(map), size, find_p(map)));
 }
 
 int	valid_item(char **map)
