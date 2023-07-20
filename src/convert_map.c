@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 22:02:19 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/20 12:01:56 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:30:31 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	info_map_2(int fd, char *str, int *error)
 		str = get_next_line(fd, error);
 	}
 	if (!str && *error == 0)
-		return (close(fd), free(str), 0);
-	return (close(fd), free(str), -1);
+		return (free(str), 0);
+	return (write(2, "Error\nFile is empty", 19), close(fd), free(str), -1);
 }
 
 int	info_map(char *pathname, int *number_of_line, int *number_of_char)
