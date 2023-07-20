@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 17:01:28 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 17:24:42 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:13:16 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,22 @@ char	**ft_strdup_two_d(char **tab)
 			copy[y][x] = tab[y][x];
 			x++;
 		}
-        copy[y][x] = '\0';
+		copy[y][x] = '\0';
 		x = 0;
 		y++;
 	}
-    copy[y] = '\0';
+	copy[y] = NULL;
 	return (copy);
+}
+
+int	valid_ext_map(char *pathname)
+{
+	int	last_index;
+
+	last_index = ft_strlen(pathname) - 1;
+	if (pathname[last_index] != 'r' || pathname[last_index - 1] != 'e'
+		|| pathname[last_index - 2] != 'b' || pathname[last_index - 3] != '.')
+		return (0);
+	else
+		return (1);
 }

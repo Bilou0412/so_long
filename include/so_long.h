@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:29:37 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 17:14:05 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/20 11:13:38 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		ft_strlen(char *str);
 int		ft_strlen_param(char *str, char c, int *error);
 int		valid_wall(char **map);
 int		number_line(char **map);
+int		valid_ext_map(char *pathname);
 int		p(char **map);
 int		e(char **map);
 int		c(char **map);

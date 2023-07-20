@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 22:02:19 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/15 17:44:21 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:01:56 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	info_map(char *pathname, int *number_of_line, int *number_of_char)
 	error = 0;
 	fd = open(pathname, O_RDONLY);
 	if (fd == -1)
-		return (-1);
+		return (write(2, "Error\nFile map is not readable", 26), -1);
 	str = get_next_line(fd, &error);
 	while (str && str[0] == '\n')
 	{
@@ -45,7 +45,8 @@ int	info_map(char *pathname, int *number_of_line, int *number_of_char)
 	{
 		*number_of_line = *number_of_line + 1;
 		if (*number_of_char != ft_strlen_param(str, '\n', &error))
-			return (close(fd), free(str), -1);
+			return (write(2, "Error\nInvalid map (not rectangular)", 36),
+				close(fd), free(str), -1);
 		free(str);
 		str = get_next_line(fd, &error);
 	}
@@ -113,6 +114,8 @@ char	**fill_map(char *pathname)
 	int		error;
 
 	error = 0;
+	if (!valid_ext_map(pathname))
+		return (write(2, "Error\nInvalid extension (.ber)", 31), NULL);
 	map = malloc_map(pathname);
 	if (!map)
 		return (NULL);

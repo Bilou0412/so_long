@@ -6,13 +6,13 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:34:18 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 17:16:55 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:02:25 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void fill(char **tab, t_point size, t_point cur)
+void	fill(char **tab, t_point size, t_point cur)
 {
 	if (cur.y < 0 || cur.y >= size.y || cur.x < 0 || cur.x >= size.x
 		|| (tab[cur.y][cur.x] != 'P' && tab[cur.y][cur.x] != 'C'
@@ -27,7 +27,7 @@ void fill(char **tab, t_point size, t_point cur)
 
 int	flood_fill(char **tab, t_point size, t_point begin)
 {
-	if(!tab)
+	if (!tab)
 		return (0);
 	fill(tab, size, begin);
 	return (way(tab));
@@ -47,7 +47,8 @@ int	valid_char(char **map)
 		{
 			if (map[j][i] != 'E' && map[j][i] != 'P' && map[j][i] != 'C'
 				&& map[j][i] != '0' && map[j][i] != '1')
-				return (0);
+				return (write(2, "Error\nInvalid map (invalid character)", 38),
+					0);
 			i++;
 		}
 		i = 0;
@@ -61,7 +62,7 @@ int	valid_char(char **map)
 int	valid_item(char **map)
 {
 	if (p(map) != 1 || e(map) != 1 || c(map) < 1)
-		return (0);
+		return (write(2, "Error\nInvalid map (item P, E or C)", 35), 0);
 	return (valid_char(map));
 }
 
@@ -79,7 +80,8 @@ int	valid_wall(char **map)
 		while (map[j][i])
 		{
 			if (map[j][i++] != '1')
-				return (0);
+				return (write(2, "Error\nInvalid map (top or bottom wall)", 39),
+					0);
 		}
 		j = number_line(map) - 1;
 		i = 0;
@@ -88,7 +90,7 @@ int	valid_wall(char **map)
 	while (map[j])
 	{
 		if (map[j][0] != '1' || map[j][ft_strlen(map[j]) - 1] != '1')
-			return (0);
+			return (write(2, "Error\nInvalid map (left or right wall)", 39), 0);
 		j++;
 	}
 	return (valid_item(map));

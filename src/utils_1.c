@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 16:59:37 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 17:16:13 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:01:46 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ t_point	find_p(char **map)
 
 int	way(char **map)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -113,11 +113,13 @@ int	way(char **map)
 		while (map[y][x])
 		{
 			if (map[y][x] == 'E' || map[y][x] == 'C')
-				return (free_tab(map, 0) ,0);
+				return (write(2,
+						"Error\nInvalid map (player can not finish map)", 46),
+					free_tab(map, 0), 0);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	return (free_tab(map, 0),1);
+	return (free_tab(map, 0), 1);
 }

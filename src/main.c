@@ -6,11 +6,12 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:26:52 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/15 17:39:48 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:43:23 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+#include "../mlx_linux/mlx.h"
 #include <stdio.h>
 
 int	main(int argc, char *argv[])
