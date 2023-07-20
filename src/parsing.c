@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:34:18 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/20 12:02:25 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/20 12:35:00 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,7 @@ int	valid_wall(char **map)
 		while (map[j][i])
 		{
 			if (map[j][i++] != '1')
-				return (write(2, "Error\nInvalid map (top or bottom wall)", 39),
-					0);
+				return (write(2, "Error\nInvalid map (top, bot wall)", 34), 0);
 		}
 		j = number_line(map) - 1;
 		i = 0;
@@ -90,7 +89,7 @@ int	valid_wall(char **map)
 	while (map[j])
 	{
 		if (map[j][0] != '1' || map[j][ft_strlen(map[j]) - 1] != '1')
-			return (write(2, "Error\nInvalid map (left or right wall)", 39), 0);
+			return (write(2, "Error\nInvalid map (left, right wall)", 34), 0);
 		j++;
 	}
 	return (valid_item(map));
