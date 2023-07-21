@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:26:52 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/18 20:43:23 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:18:35 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,20 @@
 
 int	main(int argc, char *argv[])
 {
-	char	**map;
 	int		i;
+	t_data	data;
 
 	i = 0;
 	if (argc == 2)
 	{
-		map = fill_map(argv[1]);
-		if (!map)
+		data.map = fill_map(argv[1]);
+		if (!data.map)
 			return (0);
-		if (!valid_wall(map))
-			return (free_tab(map, 0), 0);
-		while (map[i])
-		{
-			printf("%s\n", map[i]);
-			i++;
-		}
+		if (!valid_wall(data.map))
+			return (free_tab(data.map, 0), 0);
+		main_graphic(data);
 	}
 	else
 		return (0);
-	return (free_tab(map, i), 0);
+	return (free_tab(data.map, i), 0);
 }

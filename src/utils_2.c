@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 17:01:28 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/20 11:13:16 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/21 14:15:57 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,33 @@ int	valid_ext_map(char *pathname)
 		return (0);
 	else
 		return (1);
+}
+
+void	mlx_destroy_image_if_exists(void *mlx_ptr, void *img)
+{
+	if (img)
+		mlx_destroy_image(mlx_ptr, img);
+}
+
+int	exit_and_free(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->map[i])
+		free(data->map[i++]);
+	free(data->map);
+	mlx_destroy_image_if_exists(data->mlx_ptr, data->textures[0]);
+	mlx_destroy_image_if_exists(data->mlx_ptr, data->textures[1]);
+	mlx_destroy_image_if_exists(data->mlx_ptr, data->textures[2]);
+	mlx_destroy_image_if_exists(data->mlx_ptr, data->textures[3]);
+	mlx_destroy_image_if_exists(data->mlx_ptr, data->textures[4]);
+	if (data->win_ptr)
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	if (data->mlx_ptr)
+	{
+		mlx_destroy_display(data->mlx_ptr);
+		free(data->mlx_ptr);
+	}
+	exit(EXIT_SUCCESS);
 }
