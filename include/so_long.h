@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 21:29:37 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/21 15:48:56 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:11:48 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int			exit_and_free(t_data *data);
 void		p_pos(t_data *data);
 void		display_map(t_data *data);
 void		move(t_data *data, int x, int y);
+void		ft_putnbr(int n);
 
 #endif
