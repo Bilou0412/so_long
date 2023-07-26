@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 13:16:54 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/21 16:15:10 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:09:12 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,38 @@ void	p_pos(t_data *data)
 
 void	move(t_data *data, int x, int y)
 {
-    static int i;
-    
+	static int	i;
+
 	if (data->map[data->pos_py + y][data->pos_px + x] == '1')
 		return ;
-    else if(data->map[data->pos_py + y][data->pos_px + x] == 'E' && data->count_c > 0)
-        return;
+	else if (data->map[data->pos_py + y][data->pos_px + x] == 'E'
+		&& data->count_c > 0)
+		return ;
 	else
 	{
-        i++;
-	    if (data->map[data->pos_py + y][data->pos_px + x] == 'C')
-            data->count_c--;
-	    if (data->map[data->pos_py + y][data->pos_px + x] == 'E' && data->count_c == 0)
-            exit_and_free(data);          
+		i++;
+		if (data->map[data->pos_py + y][data->pos_px + x] == 'C')
+			data->count_c--;
+		if (data->map[data->pos_py + y][data->pos_px + x] == 'E'
+			&& data->count_c == 0)
+			exit_and_free(data);
 		data->map[data->pos_py][data->pos_px] = '0';
 		data->map[data->pos_py + y][data->pos_px + x] = 'P';
 		data->pos_px = data->pos_px + x;
 		data->pos_py = data->pos_py + y;
-        ft_putnbr(i);
-        write(1, "\n", 1);
+		ft_putnbr(i);
+		write(1, "\n", 1);
 		display_map(data);
 	}
 }
+
 int	ft_putchar(char c)
 {
 	write(1, &c, 1);
 	return (1);
 }
 
-void ft_putnbr(int n)
+void	ft_putnbr(int n)
 {
 	long int	nb;
 
@@ -78,4 +81,12 @@ void ft_putnbr(int n)
 	{
 		ft_putchar(nb + '0');
 	}
+}
+
+void	init_data(t_data *data)
+{
+	data->size_ximg = 50;
+	data->size_yimg = 50;
+	p_pos(data);
+	data->count_c = c(data->map);
 }

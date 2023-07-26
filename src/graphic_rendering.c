@@ -6,7 +6,7 @@
 /*   By: bmoudach <bmoudach@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/21 14:16:13 by bmoudach          #+#    #+#             */
-/*   Updated: 2023/07/21 16:13:24 by bmoudach         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:09:57 by bmoudach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ void	initialise_image(t_data *data)
 
 	i = 0;
 	data->textures[0] = mlx_xpm_file_to_image(data->mlx_ptr, "./img/0.xpm",
-		&(data->size_ximg), &(data->size_yimg));
+			&(data->size_ximg), &(data->size_yimg));
 	data->textures[1] = mlx_xpm_file_to_image(data->mlx_ptr, "./img/1.xpm",
-		&(data->size_ximg), &(data->size_yimg));
+			&(data->size_ximg), &(data->size_yimg));
 	data->textures[2] = mlx_xpm_file_to_image(data->mlx_ptr, "./img/C.xpm",
-		&(data->size_ximg), &(data->size_yimg));
+			&(data->size_ximg), &(data->size_yimg));
 	data->textures[3] = mlx_xpm_file_to_image(data->mlx_ptr, "./img/E.xpm",
-		&(data->size_ximg), &(data->size_yimg));
+			&(data->size_ximg), &(data->size_yimg));
 	data->textures[4] = mlx_xpm_file_to_image(data->mlx_ptr, "./img/P.xpm",
-		&(data->size_ximg), &(data->size_yimg));
+			&(data->size_ximg), &(data->size_yimg));
 	while (i < 5)
 	{
 		if (data->textures[i] == NULL)
@@ -53,6 +53,25 @@ int	on_keypress(int keysym, t_data *data)
 	return (0);
 }
 
+void	display_map_2(t_data *data, int *i, int *j)
+{
+	if (data->map[*j][*i] == '1')
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[1],
+			(*i * 50), (*j * 50));
+	if (data->map[*j][*i] == '0')
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[0],
+			(*i * 50), (*j * 50));
+	if (data->map[*j][*i] == 'C')
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[2],
+			(*i * 50), (*j * 50));
+	if (data->map[*j][*i] == 'P')
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[4],
+			(*i * 50), (*j * 50));
+	if (data->map[*j][*i] == 'E')
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->textures[3],
+			(*i * 50), (*j * 50));
+}
+
 void	display_map(t_data *data)
 {
 	int	i;
@@ -64,34 +83,12 @@ void	display_map(t_data *data)
 	{
 		while (data->map[j][i])
 		{
-			if (data->map[j][i] == '1')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures[1], (i * 50), (j * 50));
-			if (data->map[j][i] == '0')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures[0], (i * 50), (j * 50));
-			if (data->map[j][i] == 'C')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures[2], (i * 50), (j * 50));
-			if (data->map[j][i] == 'P')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures[4], (i * 50), (j * 50));
-			if (data->map[j][i] == 'E')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-					data->textures[3], (i * 50), (j * 50));
+			display_map_2(data, &i, &j);
 			i++;
 		}
 		i = 0;
 		j++;
 	}
-}
-
-void	init_data(t_data *data)
-{
-	data->size_ximg = 50;
-	data->size_yimg = 50;
-	p_pos(data);
-	data->count_c = c(data->map);
 }
 
 int	main_graphic(t_data data)
@@ -101,7 +98,7 @@ int	main_graphic(t_data data)
 	if (!data.mlx_ptr)
 		return (1);
 	data.win_ptr = mlx_new_window(data.mlx_ptr, ft_strlen(data.map[0]) * 50,
-		number_line(data.map) * 50, "hi :)");
+			number_line(data.map) * 50, "hi :)");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
 	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &data);
